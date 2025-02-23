@@ -5,7 +5,7 @@ Key Features ✅ Stock Selection: Uses XGBoost to select stocks based on momentu
 
 ⚙️ Tech Stack Python 3.9+ Pandas, NumPy, Scikit-learn (Data Processing & ML) XGBoost, LSTM, HMM (Stock Selection & Market Timing) CVXPY, PyPortfolioOpt (Portfolio Optimization) Backtrader (Backtesting) yFinance, Alpha Vantage (Data Source)
 
-📦 QuantFlow
+📦 SigmaEdge
 
 ┣ 📂 data/ # Raw & processed stock data
 
