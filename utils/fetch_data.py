@@ -36,25 +36,49 @@ def get_sp500_tickers():
     print(f"✅ 成功获取 {len(tickers)} 只 S&P 500 股票")
     return tickers
 
+
 def download_sp500_data(start="2010-01-01", end="2025-01-01"):
     """下载 S&P 500 成分股的历史价格数据"""
     tickers = get_sp500_tickers()
-
-    # 下载数据
-    sp500_data = yf.download(tickers, start=start, end=end, auto_adjust=False)
-
-    # 处理 'Adj Close' 列
-    if 'Adj Close' in sp500_data.columns:
-        sp500_data = sp500_data['Adj Close']
-    else:
-        print("⚠️ Warning: 'Adj Close' column not found! Check YFinance response.")
+    if not tickers:
+        print("❌ Error: 未能获取 S&P 500 股票列表")
         return
 
-    # 确保存储目录存在
-    os.makedirs('data/raw', exist_ok=True)
+    print(f"📊 正在下载 {len(tickers)} 只 S&P 500 股票数据...")
 
-    # 保存数据
-    sp500_data.to_csv('data/raw/sp500_stock_prices.csv')
+    # **获取数据**
+    sp500_data = yf.download(tickers, start=start, end=end, group_by="ticker", auto_adjust=False)
+
+    # **检查数据是否为空**
+    if sp500_data.empty:
+        print("❌ Error: 下载的 S&P 500 数据为空！可能是 API 限制或股票代码错误")
+        return
+
+    # ✅ 解决 MultiIndex 问题
+    if isinstance(sp500_data.columns, pd.MultiIndex):
+        sp500_data = sp500_data.xs("Adj Close", axis=1, level=1)  # 提取 "Adj Close"
+
+    # **打印数据结构**
+    print("📊 S&P 500 数据列名:", sp500_data.columns)
+
+    # **检查 `Adj Close` 是否存在**
+    if isinstance(sp500_data.columns, pd.MultiIndex):
+        try:
+            sp500_data = sp500_data[("Adj Close", tickers)]
+        except KeyError:
+            print("⚠️ Warning: 'Adj Close' not found in MultiIndex columns. Saving full dataset.")
+            sp500_data.to_csv(os.path.join(DATA_RAW_DIR, "sp500_data_prices .csv"))
+            return
+    elif "Adj Close" in sp500_data.columns:
+        sp500_data = sp500_data["Adj Close"]
+    else:
+        print("⚠️ Warning: 'Adj Close' column not found! Saving full dataset for debugging.")
+        sp500_data.to_csv(os.path.join(DATA_RAW_DIR, "sp500_data_prices.csv"))
+        return
+
+    # **保存数据**
+    os.makedirs(DATA_RAW_DIR, exist_ok=True)
+    sp500_data.to_csv(os.path.join(DATA_RAW_DIR, "sp500_stock_prices.csv"))
     print("✅ S&P 500 股票数据下载完成")
 
 
