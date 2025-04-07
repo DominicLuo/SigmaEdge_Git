@@ -1,25 +1,24 @@
 # SigmaEdge
-SigmaEdge is a systematic quantitative trading strategy designed for US stock markets. It leverages machine learning, factor-based stock selection, Bayesian asset allocation, and hedging strategies to optimize portfolio returns.
-
-Key Features ✅ Stock Selection: Uses XGBoost to select stocks based on momentum, volatility, and liquidity factors. ✅ Portfolio Optimization: Bayesian optimization & Mean-Variance approach for risk-adjusted returns. ✅ Market Timing: Hidden Markov Model (HMM) & LSTM for market state prediction. ✅ Risk Hedging: Heston model + VIX options for volatility hedging. ✅ Execution Optimization: VWAP & Almgren-Chriss model for efficient trade execution. ✅ Backtesting: Uses Backtrader to evaluate performance metrics (Sharpe ratio, drawdowns, etc.).
-
-⚙️ Tech Stack Python 3.9+ Pandas, NumPy, Scikit-learn (Data Processing & ML) XGBoost, LSTM, HMM (Stock Selection & Market Timing) CVXPY, PyPortfolioOpt (Portfolio Optimization) Backtrader (Backtesting) yFinance, Alpha Vantage (Data Source)
+SigmaEdge is not a quant trading system. It is a sovereign cognitive engine.
+Designed to dominate both U.S. and China markets via dynamic intelligence, multi-agent simulation, and structural alpha orchestration — customizing returns per month, per will.
+The system is not reactive. It’s self-evolving, regime-aware, and goal-driven.
 
 📦 SigmaEdge
+flowchart TD
+    A[SigmaEdge v5.5-N] --> B1[market_world: 多智能体市场模拟器]
+    A --> B2[features: 多模态因子系统（结构+情绪+形态）]
+    A --> B3[strategies: 策略人格引擎 + 表达式DSL]
+    A --> B4[portfolio: 风险分配 + 状态感知风控器]
+    A --> B5[execution: 高频撮合模拟器 + slippage模型]
+    A --> B6[learning_loop: 自学习演化器 + RL训练器]
+    A --> B7[pnl_analysis/statistics: 盈利结构分析 + 显著性验证]
+    A --> B8[user_interface: 控制台 + alpha可视化器]
+    A --> B9[configs/tests/data/utils: 支撑模块]
 
-┣ 📂 data/ # Raw & processed stock data
+    B1 --> C1[agents: momentum/value/emotion]
+    B3 --> C2[options_strategies + dom_alpha_dsl]
+    B6 --> C3[robustness_tests: regime_split/vol_shock]
 
-┣ 📂 models/ # Machine learning models (XGBoost, LSTM, HMM)
-
-┣ 📂 strategies/ # Portfolio optimization & trading execution
-
-┣ 📂 backtesting/ # Backtrader scripts for performance evaluation
-
-┣ 📜 README.md # Project documentation
-
-┣ 📜 requirements.txt # Python dependencies
-
-┗ 📜 main.py # Run the strategy
 
 Results
 
